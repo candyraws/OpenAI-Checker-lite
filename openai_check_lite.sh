@@ -11,7 +11,7 @@ openai_checker() {
 	elif echo "${header_back}" | grep -q "text/plain"; then
 		echo -e "\033[31m[BLOCKED]\033[0m Your IPv${ip_ver} is BLOCKED!"
 	else
-		cloudflare_back=$(curl -Ss${ip_ver} https://chat.openai.com/cdn-cgi/trace)
+		cloudflare_back=$(curl -Ss${ip_ver} "https://chat.openai.com/cdn-cgi/trace")
 		cloudflare_area=$(echo "${cloudflare_back}" | awk -F '=' '/loc=/{print $2}')
 		cloudflare_ip=$(echo "${cloudflare_back}" | awk -F '=' '/ip=/{print $2}')
 		if echo "${support_area}" | grep -q "\<${cloudflare_area}\>"; then
